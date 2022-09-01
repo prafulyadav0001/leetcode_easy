@@ -1,0 +1,55 @@
+import java.awt.image.AreaAveragingScaleFilter;
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class aggrs {
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        int t=sc.nextInt();
+        while (t-- >0){
+            int nos=sc.nextInt();
+            int noc= sc.nextInt();
+            int stall []=new int[nos];
+            for (int i=0;i<nos;i++){
+                stall[i]=sc.nextInt();
+            }
+            Arrays.sort(stall);
+            System.out.println(largest_distance(stall,noc));
+        }
+
+    }
+    public static boolean isitpossible(int stall [],int mid,int noc){
+        int cow=1;
+        int pos=stall[0];
+        int i=1;
+        while (i<stall.length){
+            if (stall[i]-pos>=mid){
+                cow++;
+                pos=stall[i];
+            }
+            if (cow>=noc){
+                return true;
+            }
+            i++;
+        }
+        return false;
+
+    }
+    public static int largest_distance(int stall[],int noc){
+        int l=0;
+        int h=stall[stall.length-1]+stall[0];
+        int ans=0;
+        while (l<=h){
+            int mid=(l+h)/2;
+            if (isitpossible(stall, mid, noc)==true){
+                ans=mid;
+                l=mid+1;
+            }
+            else {
+                h=mid-1;
+            }
+
+        }
+        return ans;
+    }
+}
