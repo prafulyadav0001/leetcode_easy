@@ -1,7 +1,6 @@
 //{ Driver Code Starts
 // Initial Template for Java
 
-// Contributed by Sudarshan Sharma
 import java.util.LinkedList;
 import java.util.Queue;
 import java.io.*;
