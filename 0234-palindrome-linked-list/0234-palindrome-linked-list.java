@@ -21,10 +21,12 @@ class Solution {
         p=head;
         
         int i=0;
-        while( p!=null){
+        while(p!=null ){
             arr[i]=p.val;
             i++;
+         
             p=p.next;
+            
         }
         
         int s=0,e=n-1;
