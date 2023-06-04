@@ -37,18 +37,18 @@ class Solution
     
     public ListNode mergeKLists(ListNode[] lists) 
     {
-        
         int n=lists.length,i,interval=1;
-        if(n==0)
+        if(n==0){
             return null;
-        while(interval<n)
-        {
-            for(i=0; i+interval<n; i+=interval*2)
-            {
-                lists[i]=merge2Lists(lists[i],lists[i+interval]);
-            }
-            interval*=2;
         }
-        return lists[0];
+        while(interval<n){
+             for( i=0;i+interval<n;i+=interval*2)
+             {
+                 lists[i]=merge2Lists(lists[i],lists[i+interval]);
+            
+            }
+            interval=interval*2;
+        }
+         return lists[0];
     }
 }
