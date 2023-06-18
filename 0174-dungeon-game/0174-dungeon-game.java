@@ -19,11 +19,10 @@ class Solution {
        if(dp[cr][cc]!=-1){
            return dp[cr][cc];
        }
-        
-        int left=MinimumHP(arr,cr,cc+1,dp);
-        int right=MinimumHP(arr,cr+1,cc,dp);
+     int l=MinimumHP(arr,cr+1,cc,dp);
+       int r=MinimumHP(arr,cr,cc+1,dp);
        
-       int hp= Math.min(left,right)-arr[cr][cc];
+       int hp = Math.min(l,r)-arr[cr][cc];
        
        return dp[cr][cc]= hp>0?hp:1;
    }
