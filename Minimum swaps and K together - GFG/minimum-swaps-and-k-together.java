@@ -80,18 +80,15 @@ class Complete{
 
         
 
-        while(j<n){
-
-            if(arr[i++] <=k)c--;
-
-            if(arr[j++] <= k)c++;
-
-            
-
-            ans = Math.max(c, ans);
-
-        }
-
+      while(j<n)
+      {
+          if(arr[i++]<=k)
+          c--;
+          if(arr[j++]<=k)
+          c++;
+          
+          ans=Math.max(ans,c);
+      }
  
 
         return count-ans;
