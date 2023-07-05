@@ -24,16 +24,15 @@ class Solution {
             r.end=true;
         }
         String commonPrefix(StringBuilder res){
-            // only traverse if the num of child nodes is exactly 1 
             if(this.numKids==1)
             {
             for(char c='a';c<='z';c++)
                 if(this.children[c-'a']!=null)
                 {
-				    // this is crucial, if we reach the end of a word, then this word must be the longest common prefix
+				    
                     if(this.children[c-'a'].end==true)
                         return res.append(c+"").toString();
-					// move on to the next level
+				
                     else
                         return this.children[c-'a'].commonPrefix(res.append(c+""));
                 }
