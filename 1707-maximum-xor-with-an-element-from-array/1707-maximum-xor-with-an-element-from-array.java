@@ -1,93 +1,99 @@
 class Solution {
-    public int[] maximizeXor(int[] nums, int[][] queries) {
-        int n = nums.length;
-        int m = queries.length;
-        ArrayList<Pair> query = new ArrayList<>();
-        for (int i = 0; i < m; i++) {
-            query.add(new Pair(queries[i], i)); 
-        }
-        Collections.sort(query, (x, y) -> x.arr[1] - y.arr[1]);
-        Arrays.sort(nums);
-        Trie trie = new Trie();
-        ArrayList<Integer> ans = new ArrayList<>(m);
-        for (int i = 0; i < m; i++) {
-            ans.add(-1);
-        }
-
-        int ind = 0; 
-        for (int i = 0; i < m; i++) {
-
-            while (ind < n && nums[ind] <= query.get(i).arr[1]) {
-                trie.insert(nums[ind++]);
-            }
-
-            if (ind != 0) {
-                ans.set(query.get(i).ind, trie.getMax(query.get(i).arr[0]));
-            } else { 
-                ans.set(query.get(i).ind, -1);
-            }
-        }
-
-        
-        int[] sol = new int[m];
-        for (int i = 0; i < m; i++) {
-            sol[i] = ans.get(i);
-        }
-        return sol;
-    }
-}
-
-
-class TrieNode {
-    TrieNode[] links; 
-    TrieNode() {
-        links = new TrieNode[2]; 
-    }
-    boolean containsKey(int n) {
-        return links[n] != null; 
-    }
-    TrieNode get(int n) {
-        return links[n]; 
-    }
-    void put(int n, TrieNode node) {
-        links[n] = node; 
-    }
-}
-
-class Trie{
-	TrieNode root=new TrieNode(); 
-	Trie(){}
-	void insert(int num){
-		TrieNode node=root;
-		for(int i=31;i>=0;i--){ 
-			int bit=(num>>i) & 1; 
-			if(!node.containsKey(bit)){ 
-				node.put(bit, new TrieNode()); 
+    public int[] maximizeXor(int[] arr, int[][] qr) {
+        Arrays.sort(arr);
+		Pair[] p = new Pair[qr.length];
+		for (int i = 0; i < p.length; i++) {
+			p[i] = new Pair(qr[i][0], qr[i][1], i);
+		}
+		Arrays.sort(p, new Comparator<Pair>() {
+			@Override
+			public int compare(Pair o1, Pair o2) {
+				return o1.mi - o2.mi;
 			}
-			node=node.get(bit); 
+		});
+		Node root = new Node();
+		int[] ans = new int[p.length];
+		int j = 0;
+		for (int i = 0; i < p.length; i++) {
+			while (j < arr.length && arr[j] <= p[i].mi) {
+				Insert(root, arr[j]);
+				j++;
+			}
+			if (j == 0) {
+				ans[p[i].qi] = -1;
+			} else {
+				ans[p[i].qi] = getmaxXor(root, p[i].xi);
+			}
+
+		}
+        return ans;
+    }
+    	public static class Node {
+		Node zero;
+		Node one;
+	}
+
+	public static void Insert(Node root, int val) {
+		Node curr = root;
+		for (int i = 31; i >= 0; i--) {
+			if ((val & (1 << i)) == 0) {
+				if (curr.zero != null) {
+					curr = curr.zero;
+				} else {
+					Node nn = new Node();
+					curr.zero = nn;
+					curr = nn;
+				}
+			} else {
+				if (curr.one != null) {
+					curr = curr.one;
+				} else {
+					Node nn = new Node();
+					curr.one = nn;
+					curr = nn;
+				}
+			}
+
+		}
+
+	}
+
+	public static int getmaxXor(Node root, int val) {
+		int num = 0;
+		Node curr = root;
+		for (int i = 31; i >= 0; i--) {
+			int bit = (val & (1 << i));
+			if (bit == 0) {
+				if (curr.one != null) {
+					num += (1 << i);
+					curr = curr.one;
+				} else {
+					curr = curr.zero;
+				}
+			} else {
+				if (curr.zero != null) {
+					num += (1 << i);
+					curr = curr.zero;
+				} else {
+					curr = curr.one;
+				}
+			}
+
+		}
+		return num;
+
+	}
+
+	public static class Pair {
+		int xi;
+		int mi;
+		int qi;
+
+		Pair(int xi, int mi, int qi) {
+			this.mi = mi;
+			this.qi = qi;
+			this.xi = xi;
+
 		}
 	}
-	int getMax(int num){
-		TrieNode node=root;
-		int max=0;
-		for(int i=31;i>=0;i--){ 
-			int bit=(num>>i)&1; 
-			if(node.containsKey(1-bit)){ 
-				max=max|(1<<i); 
-				node=node.get(1-bit);
-			}else{
-				node=node.get(bit); 
-			}
-		}
-		return max;
-	}
 }
-
-class Pair{
-	int [] arr; 
-	int ind; 
-	Pair(int []arr,int ind){
-		this.arr=arr; 
-		this.ind=ind;
-	}
-} 
