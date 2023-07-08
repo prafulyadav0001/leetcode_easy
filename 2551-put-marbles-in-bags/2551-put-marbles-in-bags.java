@@ -9,7 +9,7 @@ class Solution {
         }
         
         Arrays.sort(pairWeights);
-        long answer = 0l;
+        long answer = 0;
         for (int i = 0; i < k - 1; i++) {
             answer += pairWeights[n - 2 - i] - pairWeights[i];
         }
