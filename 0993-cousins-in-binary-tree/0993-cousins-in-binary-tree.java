@@ -39,8 +39,7 @@ class Solution {
                 }
 
                 if (node.left != null && node.right != null) {
-                    // Check if x and y are siblings
-                    if ((node.left.val == x && node.right.val == y) || (node.left.val == y && node.right.val == x)) {
+ if ((node.left.val == x && node.right.val == y) ||(node.left.val == y && node.right.val == x)) {
                         return false;
                     }
                 }
@@ -56,7 +55,8 @@ class Solution {
 
             if (foundX && foundY) {
                 return true;
-            } else if (foundX || foundY) {
+            }
+            else if (foundX || foundY) {
                 return false;
             }
         }
