@@ -25,6 +25,8 @@ public class Solution {
         
         while(!queue.isEmpty()){
             
+            // String str="#";
+            
             List<Integer> subList = new LinkedList<Integer>();
             
             int n =queue.size();
@@ -38,6 +40,8 @@ public class Solution {
                      queue.offer(queue.peek().right);
                 
                 subList.add(queue.poll().val);
+            
+             
             }
             
             wrapList.add(subList);
