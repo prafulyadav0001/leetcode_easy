@@ -38,11 +38,16 @@ class Solution {
                     foundY = true;
                 }
 
-                if (node.left != null && node.right != null) {
- if ((node.left.val == x && node.right.val == y) ||(node.left.val == y && node.right.val == x)) {
+    if (node.left != null && node.right != null) 
+{
+                    
+     if ((node.left.val == x && node.right.val == y) 
+     ||(node.left.val == y && node.right.val == x)) 
+     {
                         return false;
-                    }
-                }
+      }
+                
+ }
 
                 if (node.left != null) {
                     queue.offer(node.left);
@@ -52,6 +57,7 @@ class Solution {
                     queue.offer(node.right);
                 }
             }
+            
 
             if (foundX && foundY) {
                 return true;
