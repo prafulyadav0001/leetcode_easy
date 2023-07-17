@@ -5,21 +5,20 @@ class Solution {
         
         for(int i=1;i<str.length();)
         {
-            if(str.charAt(len)==str.charAt(i))
-            {
-                len++;
-                dp[i]=len;
-                i++;
-            }
+           if(str.charAt(len)==str.charAt(i)){
+               len++;
+               dp[i]=len;
+               i++;
+           }
             else{
-                if(len>0)
-                {
+                if(len>0){
                     len=dp[len-1];
                 }
                 else{
-                    dp[i]=len;
+                     dp[i]=len;
                     i++;
                 }
+                
             }
         }
 
